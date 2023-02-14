@@ -11,24 +11,103 @@ class ViewController: UIViewController {
 
     //: MARK: - UI Elements
 
-    private lazy var button: UIButton = {
+    private lazy var buttonChangeColor: UIButton = {
         let button = UIButton(configuration: .filled(), primaryAction: nil)
-        button.configuration?.title = "Button"
-        button.configuration?.attributedTitle?.font = .systemFont(ofSize: 18)
+        button.configuration?.title = "Change Color"
+        button.configuration?.attributedTitle?.font = UIFont(name: "Futura", size: 15)
         button.configuration?.cornerStyle = .capsule
-        button.configuration?.baseBackgroundColor = .systemBlue
+        button.configuration?.buttonSize = .large
+        button.configuration?.baseBackgroundColor = .systemMint
         button.addTarget(self, action: #selector(onBut(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }()
+
+    private lazy var buttonPassword: UIButton = {
+        let button = UIButton(configuration: .filled(), primaryAction: nil)
+        button.configuration?.title = "Change Password"
+        button.configuration?.attributedTitle?.font = UIFont(name: "Futura", size: 15)
+        button.configuration?.cornerStyle = .capsule
+        button.configuration?.buttonSize = .large
+        button.configuration?.baseBackgroundColor = .systemPink
+        button.addTarget(self, action: #selector(bruteForce(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    private lazy var labelPassword: UILabel = {
+        let label = UILabel()
+        label.text = "Password"
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont(name: "Futura", size: 45.0)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private lazy var textFieldPassword: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Password"
+        textField.textAlignment = .center
+        textField.backgroundColor = .white
+        textField.font = .systemFont(ofSize: 15)
+        textField.clipsToBounds = true
+        textField.layer.cornerRadius = 25
+        textField.isSecureTextEntry = true
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.style = .medium
+        activityIndicator.color = .systemGreen
+        activityIndicator.startAnimating()
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        return activityIndicator
+    }()
+
+    private lazy var stackTop: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.distribution = .fillEqually
+        stack.spacing = 100
+        stack.addArrangedSubview(labelPassword)
+        stack.addArrangedSubview(textFieldPassword)
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+
+    private lazy var stackLow: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.distribution = .fillEqually
+        stack.spacing = 15
+        stack.addArrangedSubview(buttonChangeColor)
+        stack.addArrangedSubview(buttonPassword)
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+
+    private lazy var stackGeneral: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.spacing = 150
+        stack.addArrangedSubview(stackTop)
+        stack.addArrangedSubview(stackLow)
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
     }()
 
     //: MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewColor()
         setupHierarchy()
         setupLayout()
-        self.bruteForce(passwordToUnlock: "1!gr")
     }
 
     //MARK: - Actions
@@ -36,9 +115,9 @@ class ViewController: UIViewController {
     var isBlack = false {
         didSet {
             if isBlack {
-                self.view.backgroundColor = .black
+                self.view.backgroundColor = .systemIndigo
             } else {
-                self.view.backgroundColor = .white
+                self.view.backgroundColor = .systemYellow
             }
         }
     }
@@ -47,17 +126,31 @@ class ViewController: UIViewController {
         isBlack.toggle()
     }
 
+    @objc func bruteForce(_ sender: Any) {
+        self.bruteForce(passwordToUnlock: "1!gr")
+    }
+
     //: MARK: - Setups
 
+    func viewColor() {
+        view.backgroundColor = .systemYellow
+    }
+
     private func setupHierarchy() {
-        view.addSubview(button)
+        view.addSubview(stackGeneral)
+        textFieldPassword.addSubview(activityIndicator)
 
     }
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            stackGeneral.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackGeneral.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            stackGeneral.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+            stackGeneral.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
+
+            activityIndicator.centerYAnchor.constraint(equalTo: textFieldPassword.centerYAnchor),
+            activityIndicator.rightAnchor.constraint(equalTo: textFieldPassword.rightAnchor, constant: -20),
 
         ])
     }
