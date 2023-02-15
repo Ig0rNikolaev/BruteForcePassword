@@ -163,7 +163,7 @@ class ViewController: UIViewController {
 extension ViewController {
 
     func bruteForce(passwordToUnlock: String) {
-        let queue = DispatchQueue(label: "queue", qos: .utility)
+        let queue = DispatchQueue(label: "queue", qos: .utility, attributes: .concurrent)
 
         queue.async {
             var password = ""
