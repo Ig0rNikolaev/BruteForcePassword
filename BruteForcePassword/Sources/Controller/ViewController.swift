@@ -182,10 +182,18 @@ extension ViewController {
                 textFieldPassword.isSecureTextEntry = false
                 if !isStop {
                     labelPassword.text = "\(password) остановлен"
+                    secureTextEntry()
                 } else {
                     labelPassword.text = "\(password)\n не взломан."
+                    secureTextEntry()
                 }
             }
+        }
+    }
+
+    func secureTextEntry() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            self.textFieldPassword.isSecureTextEntry = true
         }
     }
 
