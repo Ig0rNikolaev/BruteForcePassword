@@ -160,6 +160,8 @@ class ViewController: UIViewController {
     }
 }
 
+//MARK: - Extension
+
 extension ViewController {
 
     func bruteForce(passwordToUnlock: String) {
@@ -201,9 +203,9 @@ extension ViewController {
             generate.append(characterAt(index: 0, array))
         } else {
             generate.replace(at: generate.count - 1,
-                             with: characterAt(index: (indexOf(character: generate.last!, array) + 1) % array.count, array))
-            if indexOf(character: generate.last!, array) == 0 {
-                generate = String(generateBruteForce(String(generate.dropLast()), fromArray: array)) + String(generate.last!)
+                             with: characterAt(index: (indexOf(character: generate.last ?? " ", array) + 1) % array.count, array))
+            if indexOf(character: generate.last ?? " ", array) == 0 {
+                generate = String(generateBruteForce(String(generate.dropLast()), fromArray: array)) + String(generate.last ?? " ")
             }
         }
         return generate
