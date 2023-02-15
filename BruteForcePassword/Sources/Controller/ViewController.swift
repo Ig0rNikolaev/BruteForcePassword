@@ -26,7 +26,7 @@ class ViewController: UIViewController {
 
     private lazy var buttonPassword: UIButton = {
         let button = UIButton(configuration: .filled(), primaryAction: nil)
-        button.configuration?.title = "Password"
+        button.configuration?.title = "Start/pause"
         button.configuration?.attributedTitle?.font = UIFont(name: "Futura", size: 15)
         button.configuration?.cornerStyle = .capsule
         button.configuration?.buttonSize = .large
@@ -41,7 +41,8 @@ class ViewController: UIViewController {
         label.text = "Password"
         label.textColor = .white
         label.textAlignment = .center
-        label.font = UIFont(name: "Futura", size: 45.0)
+        label.font = UIFont(name: "Futura", size: 35.0)
+        label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -118,13 +119,21 @@ class ViewController: UIViewController {
         }
     }
 
+    var isStop = false {
+        didSet {
+            if isStop {
+                self.bruteForce(passwordToUnlock: textFieldPassword.text ?? "")
+                self.activityIndicator.startAnimating()
+            }
+        }
+    }
+
     @objc func onBut(_ sender: Any) {
         isColor.toggle()
     }
 
     @objc func bruteForce(_ sender: Any) {
-        self.bruteForce(passwordToUnlock: textFieldPassword.text ?? "")
-        self.activityIndicator.startAnimating()
+        isStop.toggle()
     }
 
     //: MARK: - Setups
@@ -154,26 +163,26 @@ class ViewController: UIViewController {
 extension ViewController {
 
     func bruteForce(passwordToUnlock: String) {
-        let queue = DispatchQueue.global(qos: .utility)
+        let queue = DispatchQueue(label: "queue", qos: .utility)
 
         queue.async {
-            var password: String = ""
+            var password = ""
             let allowedCharacters: [String] = String().printable.map { String($0) }
-            while password != passwordToUnlock {
+            while password != passwordToUnlock && self.isStop {
                 password = self.generateBruteForce(password, fromArray: allowedCharacters)
-
-                DispatchQueue.main.async {
-                    self.labelPassword.text = password
+                DispatchQueue.main.async { [self] in
+                    labelPassword.text = password
                 }
-                print(password)
             }
-            print(password)
-
-            DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
-                self.textFieldPassword.text = password
-                self.textFieldPassword.isSecureTextEntry = false
-                self.labelPassword.text = password
+            DispatchQueue.main.async { [self] in
+                activityIndicator.stopAnimating()
+                textFieldPassword.text = password
+                textFieldPassword.isSecureTextEntry = false
+                if !isStop {
+                    labelPassword.text = "\(password) остановлен"
+                } else {
+                    labelPassword.text = "\(password)\n не взломан."
+                }
             }
         }
     }
@@ -187,16 +196,16 @@ extension ViewController {
     }
 
     func generateBruteForce(_ string: String, fromArray array: [String]) -> String {
-        var str: String = string
-        if str.count <= 0 {
-            str.append(characterAt(index: 0, array))
+        var generate = string
+        if generate.count <= 0 {
+            generate.append(characterAt(index: 0, array))
         } else {
-            str.replace(at: str.count - 1,
-                        with: characterAt(index: (indexOf(character: str.last!, array) + 1) % array.count, array))
-            if indexOf(character: str.last!, array) == 0 {
-                str = String(generateBruteForce(String(str.dropLast()), fromArray: array)) + String(str.last!)
+            generate.replace(at: generate.count - 1,
+                             with: characterAt(index: (indexOf(character: generate.last!, array) + 1) % array.count, array))
+            if indexOf(character: generate.last!, array) == 0 {
+                generate = String(generateBruteForce(String(generate.dropLast()), fromArray: array)) + String(generate.last!)
             }
         }
-        return str
+        return generate
     }
 }
