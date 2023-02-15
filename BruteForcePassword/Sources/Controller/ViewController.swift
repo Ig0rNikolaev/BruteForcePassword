@@ -125,7 +125,6 @@ class ViewController: UIViewController {
     @objc func bruteForce(_ sender: Any) {
         self.bruteForce(passwordToUnlock: textFieldPassword.text ?? "")
         self.activityIndicator.startAnimating()
-
     }
 
     //: MARK: - Setups
@@ -154,39 +153,33 @@ class ViewController: UIViewController {
 
 extension ViewController {
 
-
-
-
     func bruteForce(passwordToUnlock: String) {
-
         let queue = DispatchQueue.global(qos: .utility)
-
 
         queue.async {
             var password: String = ""
             let allowedCharacters: [String] = String().printable.map { String($0) }
-
-            // Will strangely ends at 0000 instead of ~~~
-            while password != passwordToUnlock { // Increase MAXIMUM_PASSWORD_SIZE value for more
+            while password != passwordToUnlock {
                 password = self.generateBruteForce(password, fromArray: allowedCharacters)
-                print(password)
-                // Your stuff here
-            }
-            print(password)
-            if password == password {
+
                 DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    self.textFieldPassword.text = password
-                    self.textFieldPassword.isSecureTextEntry = false
                     self.labelPassword.text = password
                 }
+                print(password)
+            }
+            print(password)
+
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                self.textFieldPassword.text = password
+                self.textFieldPassword.isSecureTextEntry = false
+                self.labelPassword.text = password
             }
         }
-
     }
 
     func indexOf(character: Character, _ array: [String]) -> Int {
-        return array.firstIndex(of: String(character))!
+        return array.firstIndex(of: String(character)) ?? 0
     }
 
     func characterAt(index: Int, _ array: [String]) -> Character {
@@ -207,21 +200,3 @@ extension ViewController {
         return str
     }
 }
-
-extension String {
-    var digits: String { return "0123456789" }
-    var lowercase: String { return "abcdefghijklmnopqrstuvwxyz" }
-    var uppercase: String { return "ABCDEFGHIJKLMNOPQRSTUVWXYZ" }
-    var punctuation: String { return "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~" }
-    var letters: String { return lowercase + uppercase }
-    var printable: String { return digits + letters + punctuation }
-
-    mutating func replace(at index: Int, with character: Character) {
-        var stringArray = Array(self)
-        stringArray[index] = character
-        self = String(stringArray)
-    }
-}
-
-
-
