@@ -7,20 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DBA1D1EE299CEE3C00C84C9F /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA1D1ED299CEE3C00C84C9F /* Extension.swift */; };
 		DBD744D5299AD2EF005C2EC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD744D4299AD2EF005C2EC8 /* AppDelegate.swift */; };
 		DBD744D7299AD2EF005C2EC8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD744D6299AD2EF005C2EC8 /* SceneDelegate.swift */; };
 		DBD744D9299AD2EF005C2EC8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD744D8299AD2EF005C2EC8 /* ViewController.swift */; };
-		DBD744DC299AD2EF005C2EC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBD744DA299AD2EF005C2EC8 /* Main.storyboard */; };
 		DBD744DE299AD2F0005C2EC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBD744DD299AD2F0005C2EC8 /* Assets.xcassets */; };
 		DBD744E1299AD2F0005C2EC8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBD744DF299AD2F0005C2EC8 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DBA1D1ED299CEE3C00C84C9F /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		DBD744D1299AD2EF005C2EC8 /* BruteForcePassword.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BruteForcePassword.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBD744D4299AD2EF005C2EC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBD744D6299AD2EF005C2EC8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DBD744D8299AD2EF005C2EC8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		DBD744DB299AD2EF005C2EC8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DBD744DD299AD2F0005C2EC8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBD744E0299AD2F0005C2EC8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DBD744E2299AD2F0005C2EC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -37,6 +37,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DBA1D1EC299CDAF100C84C9F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				DBD744D8299AD2EF005C2EC8 /* ViewController.swift */,
+				DBA1D1ED299CEE3C00C84C9F /* Extension.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		DBD744C8299AD2EF005C2EC8 = {
 			isa = PBXGroup;
 			children = (
@@ -56,15 +65,38 @@
 		DBD744D3299AD2EF005C2EC8 /* BruteForcePassword */ = {
 			isa = PBXGroup;
 			children = (
-				DBD744D4299AD2EF005C2EC8 /* AppDelegate.swift */,
-				DBD744D6299AD2EF005C2EC8 /* SceneDelegate.swift */,
-				DBD744D8299AD2EF005C2EC8 /* ViewController.swift */,
-				DBD744DA299AD2EF005C2EC8 /* Main.storyboard */,
+				DBD744E9299ADB81005C2EC8 /* Resources */,
+				DBD744E8299ADB7B005C2EC8 /* Sources */,
+			);
+			path = BruteForcePassword;
+			sourceTree = "<group>";
+		};
+		DBD744E8299ADB7B005C2EC8 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				DBD744EA299ADBAE005C2EC8 /* App */,
+				DBA1D1EC299CDAF100C84C9F /* Controller */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		DBD744E9299ADB81005C2EC8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
 				DBD744DD299AD2F0005C2EC8 /* Assets.xcassets */,
 				DBD744DF299AD2F0005C2EC8 /* LaunchScreen.storyboard */,
 				DBD744E2299AD2F0005C2EC8 /* Info.plist */,
 			);
-			path = BruteForcePassword;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		DBD744EA299ADBAE005C2EC8 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				DBD744D4299AD2EF005C2EC8 /* AppDelegate.swift */,
+				DBD744D6299AD2EF005C2EC8 /* SceneDelegate.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +159,6 @@
 			files = (
 				DBD744E1299AD2F0005C2EC8 /* LaunchScreen.storyboard in Resources */,
 				DBD744DE299AD2F0005C2EC8 /* Assets.xcassets in Resources */,
-				DBD744DC299AD2EF005C2EC8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,20 +172,13 @@
 				DBD744D9299AD2EF005C2EC8 /* ViewController.swift in Sources */,
 				DBD744D5299AD2EF005C2EC8 /* AppDelegate.swift in Sources */,
 				DBD744D7299AD2EF005C2EC8 /* SceneDelegate.swift in Sources */,
+				DBA1D1EE299CEE3C00C84C9F /* Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		DBD744DA299AD2EF005C2EC8 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DBD744DB299AD2EF005C2EC8 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		DBD744DF299AD2F0005C2EC8 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -288,10 +312,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = BruteForcePassword/Info.plist;
+				INFOPLIST_FILE = BruteForcePassword/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -315,10 +338,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = BruteForcePassword/Info.plist;
+				INFOPLIST_FILE = BruteForcePassword/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
