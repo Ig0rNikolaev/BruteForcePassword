@@ -38,7 +38,7 @@ class ViewController: UIViewController {
 
     private lazy var labelPassword: UILabel = {
         let label = UILabel()
-        label.text = "Password"
+        label.text = "Подобрать пароль?"
         label.textColor = .white
         label.textAlignment = .center
         label.font = UIFont(name: "Futura", size: 35.0)
@@ -70,34 +70,28 @@ class ViewController: UIViewController {
     }()
 
     private lazy var stackTop: UIStackView = {
-        let stack = UIStackView()
+        let stack = UIStackView(arrangedSubviews: [labelPassword, textFieldPassword])
         stack.axis = .vertical
         stack.distribution = .fillEqually
         stack.spacing = 100
-        stack.addArrangedSubview(labelPassword)
-        stack.addArrangedSubview(textFieldPassword)
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
 
     private lazy var stackLow: UIStackView = {
-        let stack = UIStackView()
+        let stack = UIStackView(arrangedSubviews: [buttonChangeColor, buttonPassword])
         stack.axis = .horizontal
         stack.distribution = .fillEqually
         stack.spacing = 15
-        stack.addArrangedSubview(buttonChangeColor)
-        stack.addArrangedSubview(buttonPassword)
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
 
     private lazy var stackGeneral: UIStackView = {
-        let stack = UIStackView()
+        let stack = UIStackView(arrangedSubviews: [stackTop, stackLow])
         stack.axis = .vertical
         stack.distribution = .fill
         stack.spacing = 150
-        stack.addArrangedSubview(stackTop)
-        stack.addArrangedSubview(stackLow)
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -173,7 +167,7 @@ extension ViewController {
             while password != passwordToUnlock && self.isStop {
                 password = self.generateBruteForce(password, fromArray: allowedCharacters)
                 DispatchQueue.main.async { [self] in
-                    labelPassword.text = password
+                    labelPassword.text = "Идет подбор: \(password)"
                 }
             }
             DispatchQueue.main.async { [self] in
@@ -181,10 +175,10 @@ extension ViewController {
                 textFieldPassword.text = password
                 textFieldPassword.isSecureTextEntry = false
                 if !isStop {
-                    labelPassword.text = "\(password) остановлен"
+                    labelPassword.text = "Подбор остановлен: \(password)"
                     secureTextEntry()
                 } else {
-                    labelPassword.text = "\(password)\n не взломан."
+                    labelPassword.text = "Пароль подобран: \(password)."
                     secureTextEntry()
                 }
             }
